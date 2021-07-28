@@ -1,1 +1,4 @@
 node_modules/
+
+#security key
+serviceAccountKey.json
