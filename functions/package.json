@@ -18,7 +18,8 @@
     "express": "^4.17.1",
     "firebase-admin": "^9.8.0",
     "firebase-functions": "^3.14.1",
-    "multer": "^1.4.2"
+    "multer": "^1.4.2",
+    "package.json": "^2.0.1"
   },
   "devDependencies": {
     "eslint": "^7.6.0",

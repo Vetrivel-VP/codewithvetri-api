@@ -369,10 +369,15 @@ app.get("/api/trainer/verify/:trainer_id", (req, res) => {
     // replace the slash in the file path of our image location
     try {
       const document = db.collection("trainer").doc(req.params.trainer_id);
-      let trainer = await document.get();
-      return res
-        .status(200)
-        .send({ success: true, data: "User Id Already Exists" });
+      let trainer = await document.get().then((doc) => {
+        if (doc.exists) {
+          return res
+            .status(200)
+            .send({ success: true, data: "User Id Already Exists" });
+        } else {
+          return res.status(200).send({ success: true, data: "Valid User" });
+        }
+      });
     } catch (error) {
       return res.send({ success: false, msg: `Warning:, ${error}` });
     }
