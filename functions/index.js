@@ -339,6 +339,7 @@ app.post("/api/trainer/create", (req, res) => {
           trainer_name: req.body.trainer_name,
           email: req.body.email,
           mobile: req.body.mobile,
+          designation: req.body.designation,
           trainer_img: req.body.trainer_img,
           facebook: req.body.facebook,
           twitter: req.body.twitter,
@@ -409,6 +410,7 @@ app.get("/api/trainer", (req, res) => {
             trainer_name: doc.data().trainer_name,
             email: doc.data().email,
             mobile: doc.data().mobile,
+            designation: doc.data().designation,
             trainer_img: doc.data().trainer_img,
             facebook: doc.data().facebook,
             twitter: doc.data().twitter,
@@ -441,6 +443,9 @@ app.put("/api/trainer/update/:trainer_id", (req, res) => {
         : trainerData.trainer_name;
       let email = req.body.email ? req.body.email : trainerData.email;
       let mobile = req.body.mobile ? req.body.mobile : trainerData.mobile;
+      let designation = req.body.designation
+        ? req.body.designation
+        : trainerData.designation;
       let trainer_img = req.body.trainer_img
         ? req.body.trainer_img
         : trainerData.trainer_img;
@@ -457,6 +462,7 @@ app.put("/api/trainer/update/:trainer_id", (req, res) => {
         trainer_name: trainer_name,
         email: email,
         mobile: mobile,
+        designation: designation,
         trainer_img: trainer_img,
         facebook: facebook,
         twitter: twitter,
