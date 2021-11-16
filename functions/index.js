@@ -244,6 +244,47 @@ app.get("/api/concept", (req, res) => {
   })();
 });
 
+// Specific Concepts
+
+app.get("/api/concept/:concept_name", (req, res) => {
+  (async () => {
+    // replace the slash in the file path of our image location
+    try {
+      let query = db.collection("concept");
+      let response = [];
+
+      await query.get().then((querySnapshot) => {
+        let docs = querySnapshot.docs; // the result of the query
+
+        for (let doc of docs) {
+          if (doc.data().course_id == req.params.concept_name) {
+            const selectedItem = {
+              concept_id: doc.data().concept_id,
+              course_id: doc.data().course_id,
+              trainer_id: doc.data().trainer_id,
+              concept_name: doc.data().concept_name,
+              concept_img: doc.data().concept_img,
+              concept_video: doc.data().concept_video,
+              concept_description: doc.data().concept_description,
+              html_code: doc.data().html_code,
+              css_code: doc.data().html_code,
+              js_code: doc.data().html_code,
+              other_code: doc.data().html_code,
+              github_link: doc.data().github_link,
+              concept_added_date: doc.data().concept_added_date,
+            };
+            response.push(selectedItem);
+          }
+        }
+        return response; // each then should return a value otherwise we could get an exceptions
+      });
+      return res.status(200).send({ success: true, data: response }); //return response at async function too
+    } catch (error) {
+      return res.send({ success: false, msg: `Warning:, ${error}` });
+    }
+  })();
+});
+
 // Update concept
 app.put("/api/concept/update/:concept_id", (req, res) => {
   (async () => {
